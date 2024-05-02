@@ -1,46 +1,54 @@
-import { View, Text, StyleSheet } from "react-native";
+import { View, Text, StyleSheet, SectionList, SafeAreaView, StatusBar } from "react-native";
 import React from "react";
 import { Spacing } from "@/consts/spacing";
 import { Colors } from "@/consts/colors";
 import HeaderWithTitle from "@/components/headers/Header";
+import DATA, { organizeCarsIntoSections } from "@/services/data";
 
 export default function index() {
   return (
     <View>
-     <HeaderWithTitle title="TopCar" actionSheetOptions={['Cancel', 'About', 'Logout']} HideThisPage={false} />
+      <HeaderWithTitle title="TopCar" actionSheetOptions={['Cancel', 'About', 'Logout']} HideThisPage={false} />
 
-    </ View>  
+      <SafeAreaView style={styles.container}>
+        <SectionList
+          sections={organizeCarsIntoSections(DATA)}
+          renderItem={({ item }) => (
+            <View style={styles.item}>
+              <Text style={styles.model}>{item.model}</Text>
+              <Text style={styles.year}>{item.year}</Text>
+            </View>
+          )}
+          renderSectionHeader={({ section: { title } }) => (
+            <Text style={styles.header}>{title}</Text>
+          )}
+        />
+      </SafeAreaView>
+    </ View>
   );
 }
 
 const styles = StyleSheet.create({
-  footer: {
-    flex: 1,
-    justifyContent: 'flex-end',
-    marginBottom: 36,
-    maxWidth: '100%',
-    alignItems: 'center',
+  container: {
+    backgroundColor: '#fff',
   },
-  changePassword: {
-    color: Colors.primary,
-    borderColor: Colors.primary,
-    fontWeight: "bold",
-    fontSize: 24,
-    textAlign: "center",
-    borderRadius: 20,
-    borderWidth: 1, 
-    paddingVertical: 8,
-    paddingHorizontal: 16,
+  item: {
+    padding: 30,
+    marginVertical: 8,
   },
-  registerLink: {
-    marginTop: Spacing.md,
-    fontSize: 12,
-    textAlign: "center"
-  },
-  logo: {
+  header: {
     fontSize: 32,
-    fontWeight: "bold",
-    color: Colors.primary,
     textAlign: "center",
+    fontWeight: "bold",
+  },
+  model: {
+    fontSize: 20,
+    textAlign: "center",
+    fontWeight: "bold",
+  },
+  year: {
+    fontSize: 12,
+    textAlign: "center",
+    color: "gray",
   },
 });

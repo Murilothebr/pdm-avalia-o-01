@@ -1,7 +1,34 @@
-//Dados para a Atividade Avaliativa 1.
-//Coloque este arquivo na pasta "services" e depois importe na página onde ele será usado.
+interface Cars {
+  id: number;
+  brand: string;
+  model: string;
+  year: number;
+}
 
-const data = [
+export function organizeCarsIntoSections(data: Cars[]): { title: string, data: Cars[] }[] {
+  const sections: { [key: string]: Cars[] } = {};
+
+  data.forEach(item => {
+    const firstLetter = item.brand.toUpperCase();
+
+    if (!sections[firstLetter]) {
+      sections[firstLetter] = [];
+    }
+
+    sections[firstLetter].push(item);
+  });
+
+  const organizedSections = Object.keys(sections).map(letter => ({
+    title: letter,
+    data: sections[letter]
+  }));
+
+  organizedSections.sort((a, b) => a.title.localeCompare(b.title));
+
+  return organizedSections;
+}
+
+const DATA : Cars[] = [
   { id: 1, brand: "Dodge", model: "Ram Wagon B250", year: 1993 },
   { id: 2, brand: "Volvo", model: "XC90", year: 2003 },
   { id: 3, brand: "Land Rover", model: "LR2", year: 2009 },
@@ -65,7 +92,6 @@ const data = [
   { id: 61, brand: "Porsche", model: "911", year: 1994 },
   { id: 62, brand: "Scion", model: "tC", year: 2008 },
   { id: 63, brand: "BMW", model: "X3", year: 2007 },
-  { id: 64, brand: "Acura", model: "Vigor", year: 1992 },
   { id: 65, brand: "Infiniti", model: "FX", year: 2009 },
   { id: 66, brand: "BMW", model: "5 Series", year: 2010 },
   { id: 67, brand: "Toyota", model: "T100 Xtra", year: 1995 },
@@ -1004,4 +1030,4 @@ const data = [
   { id: 1000, brand: "Mitsubishi", model: "Truck", year: 1992 },
 ];
 
-export default data;
+export default DATA;
