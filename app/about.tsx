@@ -45,7 +45,7 @@ const styles = StyleSheet.create({
   boldText: {
     marginTop: 15,
     marginBottom: 10,
-    color: "grey",
+    color: "black",
     textAlign: "center",
     fontSize: 22,
     fontWeight: 'bold',

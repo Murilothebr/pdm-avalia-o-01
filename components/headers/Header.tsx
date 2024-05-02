@@ -26,13 +26,13 @@ export default function HeaderWithTitle({ title, actionSheetOptions, HideThisPag
         } else if (buttonIndex === 1) {
           if(HideThisPage)
           {
-            router.push(`/`);
+            router.push(`/home`);
             return;
           }
             
           router.push(`/about`);
         } else if (buttonIndex === 2) {
-          router.replace("/login");
+          router.replace("/");
         }
       },
     );
